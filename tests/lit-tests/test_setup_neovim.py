@@ -14,5 +14,4 @@ if __name__ == "__main__":
 # CHECK:        Processing App:Neovim(Source:/root/project/nvim,Target:/root/.config/nvim)
 # CHECK-DAG:    Copying file /root/project/nvim/init.lua to /root/.config/nvim/init.lua
 # CHECK-DAG:    Copying file /root/project/nvim/lua/config/lazy.lua to /root/.config/nvim/lua/config/lazy.lua
-# CHECK-DAG:    Copying file /root/project/nvim/lua/config/codecompanion.lua to /root/.config/nvim/lua/config/codecompanion.lua
-# CHECK-DAG:    Copying file /root/project/nvim/lua/plugins/spec-codecompanion.lua to /root/.config/nvim/lua/plugins/spec-codecompanion.lua
+# CHECK-DAG:    Copying file /root/project/nvim/lua/plugins/codecompanion.lua to /root/.config/nvim/lua/plugins/codecompanion.lua
