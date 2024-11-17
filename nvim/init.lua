@@ -1,4 +1,4 @@
--- .vimrc file
+--  .vimrc file
 
 vim.api.nvim_command("filetype plugin on")
 vim.api.nvim_command("filetype indent on")
@@ -38,3 +38,8 @@ vim.o.hlsearch = true
 
 vim.api.nvim_command("au! BufRead,BufNewFile *.ll     set filetype=llvm")
 vim.api.nvim_command("au! BufRead,BufNewFile *.llvm   set filetype=llvm")
+vim.api.nvim_command("au! BufRead,BufNewFile *.mlir   set filetype=llvm")
+
+--  Plugin setup
+
+require("config.lazy")

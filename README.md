@@ -12,18 +12,23 @@ A repository of console configuration files to easily bootstrap new development 
 
 ##  Prerequisites
 
-*   Python3
+*   python3
+
+*   python3-lit (for testing)
+
+*   FileCheck/llvm (for testing)
+
+*   [podman][1][[1]]|[docker][2][[2]] (for testing)
 
 ##  Setup
 
 *   To install the the configuration files to their default local user paths, run:
     
     ```shell
-    chmod ug+x setup.py
-    ./setup.py
+    python3 ./setup.py
     ```
 
-*   To test the setup script on a fresh [Fedora][1][[1]] container [[2]][[3]], run:
+*   To test the setup script on a fresh [Fedora][3][[3]] container, run:
 
     ```shell
     podman build -t console-config-fedora41 -f container/Containerfile .
@@ -34,14 +39,14 @@ A repository of console configuration files to easily bootstrap new development 
 
 #  References
 
-[1]:    https://fedoraproject.org/
+[1]:    https://podman.io/
 
-[2]:    https://podman.io/
+[2]:    https://www.docker.com/
 
-[3]:    https://www.docker.com/
-
-1.  `https://fedoraproject.org/`
+[3]:    https://fedoraproject.org/
 
 1.  `https://podman.io/`
 
 1.  `https://www.docker.com/`
+
+1.  `https://fedoraproject.org/`

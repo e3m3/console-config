@@ -14,10 +14,16 @@ class App:
         return f"App:{self.name}(Source:{self.dir_src},Target:{self.dir_tgt})"
 
     def walk_source(self) -> (str, str):
-        user_home_abs: str = os.path.abspath(user_home)
         for f in os.walk(self.dir_src):
-            for name in f[2]:
-                yield (os.path.abspath(os.path.join(f[0], name)), os.path.join(self.dir_tgt, name))
+            is_dir: bool = len(f[2]) == 0
+            path_src: str = os.path.abspath(os.path.join(f[0], *f[2]))
+            path_prefix: str = os.path.commonprefix([self.dir_src, f[0]])
+            path_middle: str = f[0][len(path_prefix):]
+            if os.path.isabs(path_middle):
+                # Remove the leading separator because join will ignore paths before "absolute" paths
+                path_middle = path_middle[1:]
+            path_tgt: str = os.path.join(self.dir_tgt, path_middle, *(f[1] if is_dir else f[2]))
+            yield (path_src, path_tgt, is_dir)
 
 
 def main(apps: list[App]) -> None:
@@ -26,16 +32,21 @@ def main(apps: list[App]) -> None:
         if not os.path.isdir(app.dir_tgt):
             print(f"Creating {app.dir_tgt}")
             os.makedirs(app.dir_tgt)
-        for (path_src, path_tgt) in app.walk_source():
-            print(f"Copying file {path_src} to {path_tgt}")
-            shutil.copyfile(path_src, path_tgt)
+        for (path_src, path_tgt, is_dir) in app.walk_source():
+            if is_dir and not os.path.isdir(path_tgt):
+                print(f"Creating {path_tgt}")
+                os.makedirs(path_tgt)
+            elif not is_dir and not os.path.exists(path_tgt):
+                # Don't overwrite existing configuration files
+                print(f"Copying file {path_src} to {path_tgt}")
+                shutil.copyfile(path_src, path_tgt)
 
 
 if __name__ == "__main__":
     user_home: str = str(os.environ["HOME"])
     dir_curr: str = str(os.getcwd())
     apps = [
-        App("Neovim", os.path.join(dir_curr, "nvim"), os.path.join(user_home, ".config")),
+        App("Neovim", os.path.join(dir_curr, "nvim"), os.path.join(user_home, ".config", "nvim")),
         App("Tmux", os.path.join(dir_curr, "tmux"), os.path.join(user_home)),
         App("Zsh", os.path.join(dir_curr, "zshrc"), os.path.join(user_home)),
     ]

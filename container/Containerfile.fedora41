@@ -11,18 +11,25 @@ RUN mkdir -p ${HOME}
 
 ENV TERM=xterm-256color
 ENV PROJECT_DIR=${HOME}/project
-ENV CARGO_ENV=${HOME}/.cargo/env
 
 RUN dnf upgrade -y
-RUN dnf install -y python3
+RUN dnf install -y python3 python3-lit llvm
 RUN dnf clean -y all
 
 COPY LICENSE                ${PROJECT_DIR}/
 COPY setup.py               ${PROJECT_DIR}/
 COPY nvim                   ${PROJECT_DIR}/nvim/
+COPY tests                  ${PROJECT_DIR}/tests/
 COPY tmux                   ${PROJECT_DIR}/tmux/
 COPY zshrc                  ${PROJECT_DIR}/zshrc/
 
+ENV PYTHONPATH=${PROJECT_DIR}:${PYTHONPATH}
 WORKDIR ${PROJECT_DIR}
-RUN chmod ug+x setup.py
-RUN ./setup.py
+RUN lit \
+    --config-prefix=lit \
+    --order=lexical \
+    --show-all \
+    --workers=4 \
+    --param=OS_NAME=linux \
+    --path=${PATH} \
+    ${PROJECT_DIR}/tests/lit-tests
