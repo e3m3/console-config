@@ -11,5 +11,5 @@ if __name__ == "__main__":
     ]
     setup.main(apps)
 
-# CHECK:    Processing App:Tmux(Source:/root/project/tmux,Target:/root)
-# CHECK:    Copying file /root/project/tmux/.tmux.conf to /root/.tmux.conf
+# CHECK:        Processing App:Tmux(Source:/root/project/tmux,Target:/root)
+# CHECK-DAG:    Copying file /root/project/tmux/.tmux.conf to /root/.tmux.conf

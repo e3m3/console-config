@@ -11,5 +11,5 @@ if __name__ == "__main__":
     ]
     setup.main(apps)
 
-# CHECK:    Processing App:Zsh(Source:/root/project/zshrc,Target:/root)
-# CHECK:    Copying file /root/project/zshrc/.zshrc to /root/.zshrc
+# CHECK:        Processing App:Zsh(Source:/root/project/zshrc,Target:/root)
+# CHECK-DAG:    Copying file /root/project/zshrc/.zshrc to /root/.zshrc

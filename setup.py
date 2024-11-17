@@ -16,18 +16,14 @@ class App:
     def walk_source(self) -> (str, str):
         for f in os.walk(self.dir_src):
             is_dir: bool = len(f[2]) == 0
-            path_src: str = os.path.abspath(os.path.join(f[0], *f[2]))
             path_prefix: str = os.path.commonprefix([self.dir_src, f[0]])
             path_middle: str = f[0][len(path_prefix):]
             if os.path.isabs(path_middle):
                 # Remove the leading separator because join will ignore paths before "absolute" paths
                 path_middle = path_middle[1:]
-            if is_dir:
-                for d in f[1]:
-                    path_tgt: str = os.path.join(self.dir_tgt, path_middle, d)
-                    yield (path_src, path_tgt, is_dir)
-            else:
-                path_tgt: str = os.path.join(self.dir_tgt, path_middle, *f[2])
+            for name in f[1] if is_dir else f[2]:
+                path_src: str = os.path.abspath(os.path.join(f[0], name))
+                path_tgt: str = os.path.join(self.dir_tgt, path_middle, name)
                 yield (path_src, path_tgt, is_dir)
 
 
