@@ -79,6 +79,10 @@ alias toolbox="SHELL=$(which bash) toolbox "
 #alias ocaml='rlwrap ocaml '
 #BROWSER=/usr/bin/xdg-open
 EDITOR=/usr/bin/nvim
+PAGER='less --mouse --wheel-lines=1'
+
+export EDITOR
+export PAGER
 
 alias tmux="DISPLAY=$DISPLAY tmux "
 
