@@ -1,5 +1,5 @@
 # RUN: rm -f /root/.tmux.conf
-# RUN: @python %s -m Copy | @filecheck %s
+# RUN: @python %s -m Link | @filecheck %s
 
 import os
 import setup
@@ -14,4 +14,4 @@ if __name__ == "__main__":
     setup.main(apps, setup.Args(apps, sys.argv[1:]))
 
 # CHECK:        Processing App:Tmux(Source:/root/project/tmux,Target:/root)
-# CHECK-DAG:    Copying file /root/project/tmux/.tmux.conf to /root/.tmux.conf
+# CHECK-DAG:    Linking file /root/project/tmux/.tmux.conf to /root/.tmux.conf

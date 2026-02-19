@@ -1,6 +1,6 @@
 #  Copyright
 
-Copyright 2024, Giordano Salvador
+Copyright 2024-2026, Giordano Salvador
 SPDX-License-Identifier: BSD-3-Clause
 
 Author/Maintainer:  Giordano Salvador <73959795+e3m3@users.noreply.github.com>
@@ -22,10 +22,19 @@ A repository of console configuration files to easily bootstrap new development 
 
 ##  Setup
 
-*   To install the the configuration files to their default local user paths, run:
+*   Usage:
+
+    ```
+    Usage: python -m setup.py
+        [-h|--help]
+        [-m|--mode[=]<*No-op*|Copy|Link>]
+        [-a|--app[=]<*All*|Foot|Tmux|Sway|Neovim|Zsh>]
+    ```
+
+*   To install all of the configuration files to their default local user paths, run:
     
     ```shell
-    python3 ./setup.py
+    python3 ./setup.py --mode=Copy
     ```
 
 *   To test the setup script on a fresh [Fedora][3][[3]] container, run:
