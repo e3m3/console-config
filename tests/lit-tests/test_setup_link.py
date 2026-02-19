@@ -1,17 +1,16 @@
-# RUN: rm -f /root/.tmux.conf
+# RUN: mkdir -p /tmp/console-config/link
+# RUN: touch /tmp/console-config/link/.empty
 # RUN: @python %s -m Link | @filecheck %s
 
-import os
 import setup
 import sys
 
 if __name__ == "__main__":
-    user_home = str(os.environ["HOME"])
-    dir_proj = str(os.environ["PROJECT_DIR"])
     apps = [
-        setup.App("Tmux", os.path.join(dir_proj, "tmux"), os.path.join(user_home)),
+        setup.App("Foo", "/tmp/console-config/link", "/tmp/console-config/link-tgt"),
     ]
     setup.main(apps, setup.Args(apps, sys.argv[1:]))
 
-# CHECK:        Processing App:Tmux(Source:/root/project/tmux,Target:/root)
-# CHECK-DAG:    Linking file /root/project/tmux/.tmux.conf to /root/.tmux.conf
+# CHECK:        Processing App:Foo(Source:/tmp/console-config/link,Target:/tmp/console-config/link-tgt)
+# CHECK-DAG:    Linking file /tmp/console-config/link/.empty to /tmp/console-config/link-tgt/.empty
+# CHECK-NOT:    Copying file /tmp/console-config/link/.empty to /tmp/console-config/link-tgt/.empty
