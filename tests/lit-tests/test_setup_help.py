@@ -13,5 +13,6 @@ if __name__ == "__main__":
 
 # CHECK:    Usage: python -m setup.py
 # CHECK:        [-h|--help]
+# CHECK:        [-f|--force]
 # CHECK:        [-m|--mode[=]<*No-op*|Copy|Link>]
 # CHECK:        [-a|--app[=]<*All*|Hello|World>]

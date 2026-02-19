@@ -27,6 +27,7 @@ A repository of console configuration files to easily bootstrap new development 
     ```
     Usage: python -m setup.py
         [-h|--help]
+        [-f|--force]
         [-m|--mode[=]<*No-op*|Copy|Link>]
         [-a|--app[=]<*All*|Foot|Tmux|Sway|Neovim|Zsh>]
     ```

@@ -21,13 +21,16 @@ class App:
     def __str__(self) -> str:
         return f"App:{self.name}(Source:{self.dir_src},Target:{self.dir_tgt})"
 
-    def process(self, mode: int) -> None:
+    def process(self, mode: int, force: bool) -> None:
         print(f"Processing {self}")
         if mode == App.NOP:
             print("[Info] No mode specified", file=sys.stderr)
             help([self], 1)
         for (path_src, path_tgt) in self.walk_source_dir():
-            if not os.path.exists(path_tgt):
+            if force and os.path.exists(path_tgt):
+                print(f"Removing existing file {path_tgt}")
+                os.remove(path_tgt)
+            if not os.path.lexists(path_tgt):
                 # Don't overwrite existing configuration files
                 dir_tgt = os.path.dirname(path_tgt)
                 if not os.path.isdir(dir_tgt):
@@ -67,9 +70,10 @@ class Args:
             self.__init__()
 
     def __init__(self, apps: list[App], args: list[str]) -> None:
+        self.app: option[str] = 'All'
+        self.force: bool = False
         self.help: bool = False
         self.mode: int = App.NOP
-        self.app: option[str] = 'All'
         self.parse(apps, args)
 
     def parse(self, apps: list[App], args: list[str]) -> None:
@@ -100,6 +104,8 @@ class Args:
         """
         if item.key == '-h' or item.key == '--help':
             help(apps)
+        elif item.key == '-f' or item.key == '--force':
+            self.force = True
         elif item.key == '-m' or item.key == '--mode':
             if item.value is None:
                 return True
@@ -122,6 +128,7 @@ def help(apps: list[App], exit_code=0) -> None:
     stream = None if exit_code == 0 else sys.stderr
     print("Usage: python -m setup.py " + \
         "\n   [-h|--help] " + \
+        "\n   [-f|--force] " + \
         "\n   [-m|--mode[=]<*No-op*|Copy|Link>] " + \
         f"\n   [-a|--app[=]<*All*|{'|'.join([app.name for app in apps])}>]", \
         file=stream \
@@ -136,9 +143,9 @@ def main(apps: list[App], args: Args) -> None:
     elif args.app == 'All':
         print(f"Processing all apps: {[app.name for app in apps]}")
         for app in apps:
-            app.process(args.mode)
+            app.process(args.mode, args.force)
     else:
-        [app for app in apps if app.name == args.app].pop().process(args.mode)
+        [app for app in apps if app.name == args.app].pop().process(args.mode, args.force)
     sys.exit(0)
 
 
