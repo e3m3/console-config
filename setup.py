@@ -148,6 +148,7 @@ if __name__ == "__main__":
     apps = [
         App("Foot", os.path.join(dir_curr, "foot"), os.path.join(user_home, ".config", "foot")),
         App("Neovim", os.path.join(dir_curr, "nvim"), os.path.join(user_home, ".config", "nvim")),
+        App("Qutebrowser", os.path.join(dir_curr, "qutebrowser"), os.path.join(user_home, ".config", "qutebrowser")),
         App("Sway", os.path.join(dir_curr, "sway"), os.path.join(user_home, ".config", "sway")),
         App("Tmux", os.path.join(dir_curr, "tmux"), os.path.join(user_home)),
         App("Zsh", os.path.join(dir_curr, "zsh"), os.path.join(user_home)),

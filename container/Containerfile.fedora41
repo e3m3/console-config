@@ -20,6 +20,7 @@ COPY LICENSE                ${PROJECT_DIR}/
 COPY setup.py               ${PROJECT_DIR}/
 COPY foot                   ${PROJECT_DIR}/foot/
 COPY nvim                   ${PROJECT_DIR}/nvim/
+COPY qutebrowser            ${PROJECT_DIR}/qutebrowser/
 COPY sway                   ${PROJECT_DIR}/sway/
 COPY tests                  ${PROJECT_DIR}/tests/
 COPY tmux                   ${PROJECT_DIR}/tmux/
